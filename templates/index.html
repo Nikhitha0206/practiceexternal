@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="form" method="POST" action="/register">
+            <input type="text" name="username" placeholder="Username">
+            <div class="error" id="userError"></div>
+            <input type="email" name="email" placeholder="Email">
+            <div class="error" id="emailError"></div>
+            <input type="password" name="password" placeholder="Password">
+            <div class="error" id="passError"></div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let valid = true;
+
+            const username = document.getElementsByName("username")[0].value;
+            const email = document.getElementsByName("email")[0].value;
+            const password = document.getElementsByName("password")[0].value;
+            
+            document.getElementById("userError").textContent = username ? "" : "Username required";
+            document.getElementById("emailError").textContent = email.includes("@") ? "" : "Invalid email";
+            document.getElementById("passError").textContent = password.length >= 6 ? "" : "Password too short";
+            
+            if (username && email.includes("@") && password.length >= 6) {
+                alert("Registration Successful!");
+                document.getElementById("form").reset();
+            }
+        });
+    </script>
+</body>
+</html>
